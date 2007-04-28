@@ -129,8 +129,19 @@
         <section id="hello_world">
             <title>Hello World</title>
             <para>
-
+                First of all make sure you have
+                <ulink url="http://cpan.uwinnipeg.ca/dist/Module-Starter-XSimple">Module::Starter::XSimple</ulink> and
+                <ulink url="http://cpan.uwinnipeg.ca/dist/ExtUtils-CBuilder">ExtUtils::CBuilder</ulink>
+                installed. If you don't know how, please consult
+                <ulink url="http://sial.org/howto/perl/life-with-cpan/">Life 
+                    with CPAN</ulink>.
             </para>
+            <para>
+                Then do the following:
+                <programlisting>
+                    [% " %]
+                </programlisting>                
+
         </section>
 
     </chapter>
