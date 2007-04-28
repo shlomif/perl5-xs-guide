@@ -139,8 +139,8 @@
             <para>
                 Then do the following:
                 <programlisting>
-                    [% " %]
-                </programlisting>                
+                </programlisting>
+            </para>
 
         </section>
 
