@@ -1,4 +1,5 @@
 <?xml version='1.0' ?>
+<!--vim:ft=tt2-->
 
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "/usr/share/sgml/docbook/xml-dtd-4.3/docbookx.dtd"[
@@ -139,6 +140,7 @@
             <para>
                 Then do the following:
                 <programlisting>
+[% INCLUDE "examples/xsimple-beginning/screencast.txt" %]
                 </programlisting>
             </para>
 
