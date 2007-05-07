@@ -1,5 +1,5 @@
 <?xml version='1.0' ?>
-<!--vim:ft=tt2-->
+[% USE wrap %]
 
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "/usr/share/sgml/docbook/xml-dtd-4.3/docbookx.dtd"[
@@ -124,28 +124,52 @@
     <chapter id="first_steps">
         <title>First Steps</title>
         <para>
-            Where do we start? From the "Hello World!" program of course. We'll
-            write a Perl XS extension to output "Hello World!" to the screen.
+            Where do we start? From the "Hello World!" program of course. But
+            first, let's generate a skeleton.
         </para>
-        <section id="hello_world">
-            <title>Hello World</title>
+        <section id="skeleton">
+            <title>Skeleton</title>
             <para>
                 First of all make sure you have
                 <ulink url="http://cpan.uwinnipeg.ca/dist/Module-Starter-XSimple">Module::Starter::XSimple</ulink> and
                 <ulink url="http://cpan.uwinnipeg.ca/dist/ExtUtils-CBuilder">ExtUtils::CBuilder</ulink>
                 installed. If you don't know how, please consult
-                <ulink url="http://sial.org/howto/perl/life-with-cpan/">Life 
+                <ulink url="http://sial.org/howto/perl/life-with-cpan/">Life
                     with CPAN</ulink>.
             </para>
             <para>
                 Then do the following:
                 <programlisting>
+[% FILTER wrap(80) %]
 [% INCLUDE "examples/xsimple-beginning/screencast.txt" %]
+[% END %]
                 </programlisting>
             </para>
-
+            <para>
+                What happened is that we created a skeleton for an XS
+                module, removed the boilerplate.t file, which would
+                have caused the tests to fail, built the distribution, and ran 
+                the tests, which succeeded.
+            </para>
+            <para>
+                Now what is the actual XS code?
+            </para>
+            <section id="skeleton-xs-code">
+                <title>The XS Code</title>
+                <para>
+                    The code looks like this:
+                </para>
+                <programlisting>
+[% FILTER html %]
+[% FILTER wrap(80) %]
+[% INCLUDE "examples/xsimple-beginning/XSHello.xs" %]
+[% END %]
+[% END %]
+                </programlisting>
+            </section>
         </section>
 
     </chapter>
 </book>    <!-- End of the article -->
-
+<!-- vim:ft=tt2 
+-->
