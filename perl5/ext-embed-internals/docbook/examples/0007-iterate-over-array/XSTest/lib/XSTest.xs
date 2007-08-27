@@ -193,12 +193,17 @@ sum(my_array)
                     continue;
                 }
 
+                /* If *elem is a floating-point number. */
                 if (SvNOK(*elem))
                 {
+                    /* SvNV() returns the floating-point
+                     * value of the element. */
                     ret += SvNV(*elem);
                 }
+                /* If *elem is an integer. */
                 else if (SvIOK(*elem))
                 {
+                    /* Add its integral value (IV) */
                     ret += SvIV(*elem);
                 }
             }
