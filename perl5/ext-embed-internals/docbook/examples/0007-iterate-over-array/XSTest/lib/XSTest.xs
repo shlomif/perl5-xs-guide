@@ -170,18 +170,23 @@ sum(my_array)
         RETVAL = 0;
     CODE:
         {
+            /* NV is a numeric value - a floating point double */
             NV ret;
             I32 max_index;
             I32 i;
 
             ret = 0.0;
 
+            /* av_len() returns the maximal element in the array. */
             max_index = av_len(my_array);
 
             for (i=0;i<=max_index;i++)
             {
                 SV * * elem;
 
+                /* av_fetch() fetches the element of my_array at position
+                 * i
+                 * */
                 elem = av_fetch(my_array, i, 0);
                 if (elem == NULL)
                 {
