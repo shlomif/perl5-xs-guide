@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 5;
 
 use XSTest;
 
@@ -34,4 +34,62 @@ use XSTest;
         [qw(Hon Ton Gorgon Look Mook Crook)],
         "concat_two_array_refs - original go out of scope"
     );
+}
+
+package MyTestDestroyed;
+
+use vars (qw(@log));
+
+sub new
+{
+    my $class = shift;
+    my $self = {};
+    
+    bless $self, $class;
+
+    $self->{'id'} = shift;
+
+    return $self;
+}
+
+sub DESTROY
+{
+    my $self = shift;
+
+    push @log, "$self->{id} was Destroyed";
+}
+
+package main;
+
+{
+    {
+        my $combined;
+
+        {
+            my @array1 = ("One", MyTestDestroyed->new("CamelCase"));
+            my @array2 = (20,30,40);
+
+            # $combined = XSTest::concat_two_array_refs(\@array1, \@array2);
+            $combined = [@array1, @array2];
+        }
+
+        # TEST
+        is ($combined->[0], "One", 
+            "concat_two_arrays - Garbage Collection - elem 0"
+        );
+
+        # TEST
+        is ($combined->[1]->{'id'}, "CamelCase", 
+            "concat_two_arrays - Garbage Collection - elem 1/id"
+        );
+    }
+
+    # TEST
+    is_deeply(
+        \@MyTestDestroyed::log,
+        ["CamelCase was Destroyed"],
+        "concat_two_arrays - Garbage Collection - object was destroyed.",
+    );
+
+    @MyTestDestroyed::log = ();
 }
