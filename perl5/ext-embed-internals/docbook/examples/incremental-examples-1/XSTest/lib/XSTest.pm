@@ -109,6 +109,13 @@ Equivalent to: C<< $myarray[$idx] = $value; >>
 
 This function is meant to demonstrate assigning to array values using XS.
 
+=head2 $total = concat_two_array_refs(\@array1, \@array2);
+
+Equivalent to: C<< $total = [@array1, @array2]; >>
+
+This function is meant to demonstrate creating new array references and 
+populating them.
+
 =head1 AUTHOR
 
 Shlomi Fish, C<< <shlomif@iglu.org.il> >>

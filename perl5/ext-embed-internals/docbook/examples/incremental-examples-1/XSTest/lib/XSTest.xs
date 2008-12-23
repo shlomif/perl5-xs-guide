@@ -237,3 +237,74 @@ assign_to_array(my_array, idx, value)
                 }
             }
         }
+
+AV *
+concat_two_array_refs(array1, array2)
+    AV * array1
+    AV * array2
+
+    INIT:
+        /* Initialize RETVAL to NULL, so we'll know something is wrong
+         * if this indeed the case*/
+        RETVAL = NULL;
+
+    CODE:
+        {
+            AV * ret;
+            AV * current;
+            I32 max_index;
+            I32 i;
+            I32 array_idx;
+            SV * * elem;
+
+            /* av_make() accepts a size and a list of SV's. So this
+             * call creates a new array*/
+            ret = av_make(0, NULL);
+
+            if (ret == NULL)
+            {
+                goto myerror;
+            }
+
+            for(array_idx=0;array_idx<2;array_idx++)
+            {
+                current = (array_idx == 0) ? array1 : array2;
+
+                max_index = av_len(current);
+                for(i=0;i<=max_index;i++)
+                {
+                    elem = av_fetch(current, i, 0);
+                    if (elem == NULL)
+                    {
+                        av_push(ret, &PL_sv_undef);
+                    }
+                    else
+                    {
+                        /* Increment the reference count because we now
+                         * reference it in another place and av_push
+                         * does not do it for us.
+                         * 
+                         * This is a variation of SvREFCNT_inc which has
+                         * some limitations that don't matter here.
+                         * 
+                         * From the documentation (perldoc perlapi):
+                         *
+                         * SvREFCNT_inc_void_NN
+                               Same as SvREFCNT_inc, but can only be used if 
+                               you don't need the return value, and you know
+                               that sv is not NULL.  The macro doesn't need to
+                               return a meaningful value, or check for
+                               NULLness, so it's smaller and faster.
+                         * */
+
+                        SvREFCNT_inc_void_NN(*elem);
+                        av_push(ret, *elem);
+                    }
+                }
+            }
+
+            myerror:
+            RETVAL = ret;
+        }
+    OUTPUT:
+        RETVAL
