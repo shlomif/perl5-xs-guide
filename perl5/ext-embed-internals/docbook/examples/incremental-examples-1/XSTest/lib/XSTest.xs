@@ -284,8 +284,8 @@ concat_two_array_refs(array1, array2)
                          * reference it in another place and av_push
                          * does not do it for us.
                          * 
-                         * This is a variation of SvREFCNT_inc which has
-                         * some limitations that don't matter here.
+                         * SvREFCNT_inc_void_NN is a variation of SvREFCNT_inc 
+                         * which has some limitations that don't matter here.
                          * 
                          * From the documentation (perldoc perlapi):
                          *
@@ -295,6 +295,9 @@ concat_two_array_refs(array1, array2)
                                that sv is not NULL.  The macro doesn't need to
                                return a meaningful value, or check for
                                NULLness, so it's smaller and faster.
+
+                         * av_fetch cannot return a non-NULL SV** that points
+                         * to a NULL SV*.
                          * */
 
                         SvREFCNT_inc_void_NN(*elem);
