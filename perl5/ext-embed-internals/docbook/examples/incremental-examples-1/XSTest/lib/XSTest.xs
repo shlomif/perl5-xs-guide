@@ -306,6 +306,18 @@ concat_two_array_refs(array1, array2)
                 }
             }
 
+            /* We need to mortalize the AV because it is returned by
+             * the function (on the stack), and so will not be garbage
+             * collected. According to:
+             *
+             * http://www.nntp.perl.org/group/perl.xs/2008/12/msg2521.html
+             *
+             * AV *'s and HV *'s are not mortalized by default as is the case
+             * for SV *'s, so they need to be mortalized explicitly.
+             * */
+
+            sv_2mortal((SV *)ret);
+
             myerror:
             RETVAL = ret;
         }

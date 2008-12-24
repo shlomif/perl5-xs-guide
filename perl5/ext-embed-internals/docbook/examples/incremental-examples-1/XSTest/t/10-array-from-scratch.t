@@ -69,8 +69,8 @@ package main;
             my @array1 = ("One", MyTestDestroyed->new("CamelCase"));
             my @array2 = (20,30,40);
 
-            # $combined = XSTest::concat_two_array_refs(\@array1, \@array2);
-            $combined = [@array1, @array2];
+            $combined = XSTest::concat_two_array_refs(\@array1, \@array2);
+            # $combined = [@array1, @array2];
         }
 
         # TEST
@@ -82,6 +82,7 @@ package main;
         is ($combined->[1]->{'id'}, "CamelCase", 
             "concat_two_arrays - Garbage Collection - elem 1/id"
         );
+
     }
 
     # TEST
