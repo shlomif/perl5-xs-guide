@@ -239,87 +239,55 @@ assign_to_array(my_array, idx, value)
         }
 
 AV *
-concat_two_array_refs(array1, array2)
-    AV * array1
-    AV * array2
-
-    INIT:
-        /* Initialize RETVAL to NULL, so we'll know something is wrong
-         * if this indeed the case*/
-        RETVAL = NULL;
-
+concat_two_array_refs (AV * a1, AV * a2)
+    PREINIT:
+        AV * av;
+        int a1len, a2len, i, n;
     CODE:
-        {
-            AV * ret;
-            AV * current;
-            I32 max_index;
-            I32 i;
-            I32 array_idx;
-            SV * * elem;
+        a1len = av_len (a1) + 1;
+        a2len = av_len (a2) + 1;
+        n = 0;
 
-            /* av_make() accepts a size and a list of SV's. So this
-             * call creates a new array*/
-            ret = av_make(0, NULL);
+        /* We return av. newAV initializes a new array. */
+        av = newAV ();
+        /* Pre-extend the array so we don't waste time allocating each time
+         * through the loop. */
+        av_extend (av, a1len + a2len);
 
-            if (ret == NULL)
-            {
-                goto myerror;
-            }
-
-            for(array_idx=0;array_idx<2;array_idx++)
-            {
-                current = (array_idx == 0) ? array1 : array2;
-
-                max_index = av_len(current);
-                for(i=0;i<=max_index;i++)
-                {
-                    elem = av_fetch(current, i, 0);
-                    if (elem == NULL)
-                    {
-                        av_push(ret, &PL_sv_undef);
-                    }
-                    else
-                    {
-                        /* Increment the reference count because we now
-                         * reference it in another place and av_push
-                         * does not do it for us.
-                         * 
-                         * SvREFCNT_inc_void_NN is a variation of SvREFCNT_inc 
-                         * which has some limitations that don't matter here.
-                         * 
-                         * From the documentation (perldoc perlapi):
-                         *
-                         * SvREFCNT_inc_void_NN
-                               Same as SvREFCNT_inc, but can only be used if 
-                               you don't need the return value, and you know
-                               that sv is not NULL.  The macro doesn't need to
-                               return a meaningful value, or check for
-                               NULLness, so it's smaller and faster.
-
-                         * av_fetch cannot return a non-NULL SV** that points
-                         * to a NULL SV*.
-                         * */
-
-                        SvREFCNT_inc_void_NN(*elem);
-                        av_push(ret, *elem);
-                    }
-                }
-            }
-
-            /* We need to mortalize the AV because it is returned by
-             * the function (on the stack), and so will not be garbage
-             * collected. According to:
-             *
-             * http://www.nntp.perl.org/group/perl.xs/2008/12/msg2521.html
-             *
-             * AV *'s and HV *'s are not mortalized by default as is the case
-             * for SV *'s, so they need to be mortalized explicitly.
-             * */
-
-            sv_2mortal((SV *)ret);
-
-            myerror:
-            RETVAL = ret;
+        for (i = 0 ; i < a1len ; i++) {
+                SV ** svp = av_fetch (a1, i, FALSE);
+                /* Since we already checked the array length,
+                 * fetch should not fail */
+                assert (svp);
+                /* Let the new array take ownership of a new copy of the sv. */
+                av_store (av, n, newSVsv (*svp));
+                n++;
         }
+
+        /* Same as above for the other array */
+        for (i = 0 ; i < a2len ; i++) {
+                SV ** svp = av_fetch (a2, i, FALSE);
+                assert (svp);
+                av_store (av, n, newSVsv (*svp));
+                n++;
+        }
+
+
+        assert (n == (a1len + a2len));
+        /* We need to mortalize the AV because it is returned by
+         * the function (on the stack), and so will not be garbage
+         * collected. According to:
+         *
+         * http://www.nntp.perl.org/group/perl.xs/2008/12/msg2521.html
+         *
+         * AV *'s and HV *'s are not mortalized by default as is the case
+         * for SV *'s, so they need to be mortalized explicitly.
+         * */
+
+        sv_2mortal((SV *)av);
+        
+        RETVAL = av;
+
     OUTPUT:
         RETVAL
+

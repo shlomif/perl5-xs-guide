@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 7;
 
 use XSTest;
 
@@ -94,3 +94,28 @@ package main;
 
     @MyTestDestroyed::log = ();
 }
+
+{
+    my @array1 = (0, 1, 200, 33);
+    my @array2 = (4004, 50);
+
+    my $combined = XSTest::concat_two_array_refs(\@array1, \@array2);
+
+    $array1[0] .= "Hello";
+
+    # TEST
+    is_deeply(
+        $combined,
+        [0, 1, 200, 33, 4004, 50],
+        "concat_two_array_refs - 1"
+    );
+
+    $combined->[1] .= "suffix";
+
+    # TEST
+    is_deeply(
+        \@array1,
+        ["0Hello", 1, 200, 33],
+    );
+}
+
