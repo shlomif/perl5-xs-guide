@@ -19,6 +19,7 @@ t/07-assign-string-to-ref.t
 t/09-assign-to-array.t
 t/10-array-from-scratch.t
 t/11-lookup-hash-constant.t
+t/12-lookup-hash-by-key.t
 t/boilerplate.t
 t/lib/scripts/get-24-leak-test.pl
 t/lib/scripts/get-string-leak-test.pl

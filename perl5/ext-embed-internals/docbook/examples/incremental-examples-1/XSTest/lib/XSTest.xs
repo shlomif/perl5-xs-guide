@@ -309,3 +309,26 @@ lookup_mystring_in_hash(HV * hash)
     OUTPUT:
         RETVAL
 
+SV *
+lookup_value_in_hash(HV * hash, SV * key)
+    PREINIT:
+        HE * hash_entry;
+    CODE:
+        /* hv_fetch_ent() looks up a hash based on an SV * key. It returns
+         * the hash entry, which needs to be looked up using HeVAL.
+         *
+         * It also accepts a hash value, which is based on the hash table
+         * calculations, and an lval.
+         * */
+        if ((hash_entry = hv_fetch_ent(hash, key, 0, 0)))
+        {
+            RETVAL = newSVsv(HeVAL(hash_entry));
+        }
+        else
+        {
+            RETVAL = &PL_sv_undef;
+        }
+
+    OUTPUT:
+        RETVAL
+

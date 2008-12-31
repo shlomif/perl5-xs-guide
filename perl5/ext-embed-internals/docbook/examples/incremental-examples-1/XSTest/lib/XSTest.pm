@@ -123,6 +123,13 @@ Equivalent to C<< $value = $hash{'mystring'} >>
 This function is meant to demonstrate hash lookup. Returns undef if the
 hash does not contain the key C<'mystring'> .
 
+=head2 $value = lookup_value_in_hash(\%hash, $key)
+
+Equivalent to C<< $value = $hash{$key} >>
+
+This function is meant to demonstrate hash lookup with a user-given or
+run-time specified key. Returns undef if the hash does not contain the key.
+
 =head1 AUTHOR
 
 Shlomi Fish, C<< <shlomif@iglu.org.il> >>
