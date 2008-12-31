@@ -116,6 +116,13 @@ Equivalent to: C<< $total = [@array1, @array2]; >>
 This function is meant to demonstrate creating new array references and 
 populating them.
 
+=head2 $value = lookup_mystring_in_hash(\%hash)
+
+Equivalent to C<< $value = $hash{'mystring'} >>
+
+This function is meant to demonstrate hash lookup. Returns undef if the
+hash does not contain the key C<'mystring'> .
+
 =head1 AUTHOR
 
 Shlomi Fish, C<< <shlomif@iglu.org.il> >>
@@ -135,7 +142,7 @@ your bug as I make changes.
 Copyright 2007 Shlomi Fish, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+under the terms of the MIT/X11 License.
 
 =cut
 

@@ -291,3 +291,21 @@ concat_two_array_refs (AV * a1, AV * a2)
     OUTPUT:
         RETVAL
 
+SV *
+lookup_mystring_in_hash(HV * hash)
+    PREINIT:
+        SV **value;
+    CODE:
+        /* hv_fetch() takes the hash, the string, the string length,
+         * and whether it is an lvalue or not. */
+        if ((value = hv_fetch(hash, "mystring", 8, FALSE)))
+        {
+            RETVAL = newSVsv(*value);
+        }
+        else
+        {
+            RETVAL = &PL_sv_undef;
+        }
+    OUTPUT:
+        RETVAL
+
