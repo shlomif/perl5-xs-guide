@@ -318,7 +318,8 @@ lookup_value_in_hash(HV * hash, SV * key)
          * the hash entry, which needs to be looked up using HeVAL.
          *
          * It also accepts a hash value, which is based on the hash table
-         * calculations, and an lval.
+         * calculations (0 for the function to calculate it itself), and an 
+         * lval indicator (0 for FALSE).
          * */
         if ((hash_entry = hv_fetch_ent(hash, key, 0, 0)))
         {
