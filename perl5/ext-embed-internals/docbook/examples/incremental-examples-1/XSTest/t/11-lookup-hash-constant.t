@@ -40,7 +40,7 @@ use XSTest;
 
     # TEST
     is_deeply (
-        \%hash, 
+        \%hash,
         {
             mystring => [qw(56 78 MyVal)],
             author => "Jane",

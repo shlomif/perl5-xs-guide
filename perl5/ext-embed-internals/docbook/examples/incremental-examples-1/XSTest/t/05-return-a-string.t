@@ -19,7 +19,7 @@ is ($var, "Hello", "Assignment works.");
 $var = "Aloha";
 
 # TEST
-is ($var, "Aloha", 
+is ($var, "Aloha",
     "Assigning a different value to the XS returned variable works."
 );
 

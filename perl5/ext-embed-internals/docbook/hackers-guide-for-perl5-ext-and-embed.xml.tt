@@ -53,9 +53,9 @@
                 </listitem>
                 <listitem>
                     <para>
-                        The 
-                        <ulink 
-                            url="http://www.opensource.org/licenses/mit-license.php">MIT 
+                        The
+                        <ulink
+                            url="http://www.opensource.org/licenses/mit-license.php">MIT
                             X11 License</ulink>.
                     </para>
                 </listitem>
@@ -77,9 +77,9 @@
         <title>Introduction</title>
         <para>
             perl5 is the name of the most popular implementation for the version
-            5 of the <ulink url="http://www.perl.org/">Perl 
+            5 of the <ulink url="http://www.perl.org/">Perl
                 language</ulink> as of this writing. It is open-source, written
-            in portable ANSI C, runs on many platforms, is fast (though has no 
+            in portable ANSI C, runs on many platforms, is fast (though has no
             JIT yet), works pretty well, and is what most people are using. (At
             least as of April 2007)
         </para>
@@ -88,7 +88,7 @@
             are not very accessible, and badly documented, which makes
             writing extensions for perl5 and embedding it inside other
             programs very unpopular. Simon Cozens and Tim Jenness wrote
-            <ulink url="http://www.manning.com/jenness/">Extending 
+            <ulink url="http://www.manning.com/jenness/">Extending
                 and Embedding Perl</ulink> back in 2002, in an aim to remedy
             this. However, a legitimate copy of this book is not available
             online (although can be downloaded "illegally"), and the book
@@ -96,21 +96,21 @@
         </para>
         <para>
             The aim of this document is to remedy this. It will provide
-            code examples, explanations, 
-            <ulink url="http://www.w3.org/Graphics/SVG/">SVG</ulink> 
+            code examples, explanations,
+            <ulink url="http://www.w3.org/Graphics/SVG/">SVG</ulink>
             illustrations and diagrams, and other aids in overcoming the
             problems.
         </para>
         <para>
-            Furthermore this document is fully open-source and 
-            <ulink url="http://en.wikipedia.org/wiki/Public_domain">public 
+            Furthermore this document is fully open-source and
+            <ulink url="http://en.wikipedia.org/wiki/Public_domain">public
                 domain</ulink>, and as such easily reusable.
         </para>
         <section id="audience">
             <title>Audience and Expected Knowledge</title>
             <para>
                 We intend this book for Perl 5 programmers who are interested
-                to learn how to write perl 5 extensions in C and other 
+                to learn how to write perl 5 extensions in C and other
                 languages, who are interested to embed perl 5 in their C
                 program or who are interested to learn how it works on the
                 inside.
@@ -148,7 +148,7 @@
             <para>
                 What happened is that we created a skeleton for an XS
                 module, removed the boilerplate.t file, which would
-                have caused the tests to fail, built the distribution, and ran 
+                have caused the tests to fail, built the distribution, and ran
                 the tests, which succeeded.
             </para>
             <para>
@@ -171,5 +171,5 @@
 
     </chapter>
 </book>    <!-- End of the article -->
-<!-- vim:ft=tt2 
+<!-- vim:ft=tt2
 -->

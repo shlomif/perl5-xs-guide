@@ -7,7 +7,7 @@ use XSTest;
 
 {
     my $value = XSTest::lookup_value_in_hash(
-        { 'key1' => "Success100" }, 
+        { 'key1' => "Success100" },
         "key1"
     );
 
@@ -55,7 +55,7 @@ use XSTest;
 
 {
     my $value = XSTest::lookup_value_in_hash(
-        { "012\0abc" => "That's OK", }, 
+        { "012\0abc" => "That's OK", },
         "012\0abc",
     );
 

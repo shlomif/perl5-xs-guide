@@ -44,7 +44,7 @@ sub new
 {
     my $class = shift;
     my $self = {};
-    
+
     bless $self, $class;
 
     $self->{'id'} = shift;
@@ -74,12 +74,12 @@ package main;
         }
 
         # TEST
-        is ($combined->[0], "One", 
+        is ($combined->[0], "One",
             "concat_two_arrays - Garbage Collection - elem 0"
         );
 
         # TEST
-        is ($combined->[1]->{'id'}, "CamelCase", 
+        is ($combined->[1]->{'id'}, "CamelCase",
             "concat_two_arrays - Garbage Collection - elem 1/id"
         );
 

@@ -6,7 +6,7 @@
 
 typedef SV * XSHello;
 
-MODULE = XSHello		PACKAGE = XSHello		
+MODULE = XSHello		PACKAGE = XSHello
 
 XSHello
 new(...)
@@ -25,7 +25,7 @@ new(...)
     	RETVAL = (XSHello)newHV();
 
 	/* Single init value */
-	if ( items == 2 ) 
+	if ( items == 2 )
 	    hv_store((HV *)RETVAL, "value", 5, newSVsv(ST(1)), 0);
 	/* name/value pairs */
 	else if ( (items-1)%2 == 0 ) {

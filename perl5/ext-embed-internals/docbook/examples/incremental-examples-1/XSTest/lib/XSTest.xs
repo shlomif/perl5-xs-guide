@@ -6,7 +6,7 @@
 
 typedef SV * XSTest;
 
-MODULE = XSTest		PACKAGE = XSTest		
+MODULE = XSTest		PACKAGE = XSTest
 
 XSTest
 new(...)
@@ -25,7 +25,7 @@ new(...)
     	RETVAL = (XSTest)newHV();
 
 	/* Single init value */
-	if ( items == 2 ) 
+	if ( items == 2 )
 	    hv_store((HV *)RETVAL, "value", 5, newSVsv(ST(1)), 0);
 	/* name/value pairs */
 	else if ( (items-1)%2 == 0 ) {
@@ -84,7 +84,7 @@ get_xs_string()
          * if this indeed the case*/
         RETVAL = NULL;
     CODE:
-        /* newSVpv creates a new SV (= scalar value) and copies a string into 
+        /* newSVpv creates a new SV (= scalar value) and copies a string into
          * it. The reference count for it is equal to 1 which is suitable
          * for returning from a function.
          *
@@ -105,7 +105,7 @@ get_xs_binary_string()
         RETVAL = NULL;
     CODE:
         /* newSVpvn (buffer, len) creates a new SV (= scalar value) from
-         * a buffer and a length. Like newSVpv, the reference count for it is 
+         * a buffer and a length. Like newSVpv, the reference count for it is
          * equal to 1 which is suitable for returning from a function.
          *
          * */
@@ -139,15 +139,15 @@ assign_string_to_ref(myref)
             if (SvROK(myref))
             {
                 SV * var;
-                
-                /* 
-                 * SvRV(myref) dereferences myref. var will be the XS 
+
+                /*
+                 * SvRV(myref) dereferences myref. var will be the XS
                  * equivalent of the Perl $myvar itself.
                  * */
                 var = SvRV(myref);
 
                 /*
-                 * Now let's change the variable in place to the string we 
+                 * Now let's change the variable in place to the string we
                  * desire.
                  *
                  * Aside from sv_setpv there's also sv_setpv_mg() which
@@ -230,7 +230,7 @@ assign_to_array(my_array, idx, value)
 
                 if (av_store(my_array, idx, value) == NULL)
                 {
-                    /* If av_store() failed - decrease the reference 
+                    /* If av_store() failed - decrease the reference
                      * count.
                      * */
                     SvREFCNT_dec(value);
@@ -285,7 +285,7 @@ concat_two_array_refs (AV * a1, AV * a2)
          * */
 
         sv_2mortal((SV *)av);
-        
+
         RETVAL = av;
 
     OUTPUT:
@@ -318,7 +318,7 @@ lookup_value_in_hash(HV * hash, SV * key)
          * the hash entry, which needs to be looked up using HeVAL.
          *
          * It also accepts a hash value, which is based on the hash table
-         * calculations (0 for the function to calculate it itself), and an 
+         * calculations (0 for the function to calculate it itself), and an
          * lval indicator (0 for FALSE).
          * */
         if ((hash_entry = hv_fetch_ent(hash, key, 0, 0)))
